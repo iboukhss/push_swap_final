@@ -6,7 +6,7 @@
 /*   By: iboukhss <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 17:21:18 by iboukhss          #+#    #+#             */
-/*   Updated: 2024/10/19 20:12:38 by iboukhss         ###   ########.fr       */
+/*   Updated: 2024/10/20 01:36:47 by iboukhss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,34 @@ void	stack_delete(t_stack *stack)
 	free(stack);
 }
 
-// TODO
-t_stack	*stack_init_from_array(t_stack *stack, int *array, ptrdiff_t array_size);
+t_node	*freelist_pop(t_stack *stack)
+{
+	t_node	*node;
+
+	if (stack->free_list == NULL)
+	{
+		return (NULL);
+	}
+	node = stack->free_list;
+	stack->free_list = stack->free_list->next_free;
+	return (node);
+}
+
+t_stack	*stack_init_from_array(t_stack *stack, int *array, ptrdiff_t array_size)
+{
+	t_node	*node;
+	int		*end;
+
+	end = array + array_size;
+	while (end > array)
+	{
+		node = freelist_pop(stack);
+		if (node == NULL)
+		{
+			return (NULL);
+		}
+		node->data = *--end;
+		chunk_push(&stack->curr, node);
+	}
+	return (stack);
+}

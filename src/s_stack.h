@@ -6,7 +6,7 @@
 /*   By: iboukhss <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 17:21:28 by iboukhss          #+#    #+#             */
-/*   Updated: 2024/10/19 20:10:41 by iboukhss         ###   ########.fr       */
+/*   Updated: 2024/10/20 01:38:01 by iboukhss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_stack
 t_stack	*stack_new(ptrdiff_t stack_size);
 t_stack	*stack_init_from_array(t_stack *stack, int *array, ptrdiff_t array_size);
 void	stack_delete(t_stack *stack);
+t_node	*freelist_pop(t_stack *stack);
 
 // Pop
 t_node	*chunk_pop(t_chunk *chunk);
@@ -67,5 +68,11 @@ t_node	*stack_pop_curr(t_stack *stack);
 t_node	*stack_pop_min(t_stack *stack);
 t_node	*stack_pop_mid(t_stack *stack);
 t_node	*stack_pop_max(t_stack *stack);
+
+// Push
+void	chunk_push(t_chunk *chunk, t_node *node);
+void	stack_push_min(t_stack *stack);
+void	stack_push_mid(t_stack *stack);
+void	stack_push_max(t_stack *stack);
 
 #endif
