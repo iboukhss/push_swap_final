@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps_main.c                                          :+:      :+:    :+:   */
+/*   tst_main.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iboukhss <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/19 17:19:52 by iboukhss          #+#    #+#             */
-/*   Updated: 2024/10/21 23:00:40 by iboukhss         ###   ########.fr       */
+/*   Created: 2024/10/21 19:42:30 by iboukhss          #+#    #+#             */
+/*   Updated: 2024/10/21 21:19:08 by iboukhss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ps_main.h"
+#ifndef TST_MAIN_H
+# define TST_MAIN_H
 
-int	main(void)
-{
-	return (0);
-}
+# include "s_stack.h"
+
+# include <assert.h>
+
+void	test_stack_new(void);
+void	test_stack_init(void);
+
+#endif

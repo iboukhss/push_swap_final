@@ -6,7 +6,7 @@
 /*   By: iboukhss <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 17:21:18 by iboukhss          #+#    #+#             */
-/*   Updated: 2024/10/20 01:36:47 by iboukhss         ###   ########.fr       */
+/*   Updated: 2024/10/21 20:00:35 by iboukhss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include <stdlib.h>
 
-static t_node	*free_list_init(t_node *pool, ptrdiff_t pool_size)
+t_node	*freelist_init(t_node *pool, ptrdiff_t pool_size)
 {
 	ptrdiff_t	i;
 
@@ -36,7 +36,7 @@ t_stack	*stack_new(ptrdiff_t stack_size)
 	stack = calloc(1, sizeof(*stack));
 	pool = calloc(stack_size, sizeof(*pool));
 	stack->pool = pool;
-	stack->free_list = free_list_init(pool, stack_size);
+	stack->free_list = freelist_init(pool, stack_size);
 	stack->cap = stack_size;
 	stack->curr.pos = TOP_A;
 	stack->min.pos = BOT_B;
@@ -61,6 +61,8 @@ t_node	*freelist_pop(t_stack *stack)
 	}
 	node = stack->free_list;
 	stack->free_list = stack->free_list->next_free;
+	node->prev = NULL;
+	node->next = NULL;
 	return (node);
 }
 

@@ -6,13 +6,14 @@
 /*   By: iboukhss <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 17:21:28 by iboukhss          #+#    #+#             */
-/*   Updated: 2024/10/20 01:38:01 by iboukhss         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:59:41 by iboukhss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef S_STACK_H
 # define S_STACK_H
 
+# include <stdbool.h>
 # include <stddef.h>
 
 // Doubly linked list of integers
@@ -56,23 +57,29 @@ typedef struct s_stack
 	t_chunk		max;
 }	t_stack;
 
-// Initialize
+// Stack construct/destruct
 t_stack	*stack_new(ptrdiff_t stack_size);
 t_stack	*stack_init_from_array(t_stack *stack, int *array, ptrdiff_t array_size);
 void	stack_delete(t_stack *stack);
-t_node	*freelist_pop(t_stack *stack);
 
-// Pop
-t_node	*chunk_pop(t_chunk *chunk);
+// Stack pop
 t_node	*stack_pop_curr(t_stack *stack);
 t_node	*stack_pop_min(t_stack *stack);
 t_node	*stack_pop_mid(t_stack *stack);
 t_node	*stack_pop_max(t_stack *stack);
 
-// Push
-void	chunk_push(t_chunk *chunk, t_node *node);
+// Stack push
 void	stack_push_min(t_stack *stack);
 void	stack_push_mid(t_stack *stack);
 void	stack_push_max(t_stack *stack);
+
+// Free list
+t_node	*freelist_init(t_node *pool, ptrdiff_t pool_size);
+t_node	*freelist_pop(t_stack *stack);
+
+// Chunk
+t_node	*chunk_pop(t_chunk *chunk);
+void	chunk_push(t_chunk *chunk, t_node *node);
+bool	chunk_is_sorted(t_chunk *chunk);
 
 #endif
